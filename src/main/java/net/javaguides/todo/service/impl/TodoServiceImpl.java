@@ -3,10 +3,12 @@ package net.javaguides.todo.service.impl;
 import lombok.AllArgsConstructor;
 import net.javaguides.todo.dto.TodoDto;
 import net.javaguides.todo.entity.Todo;
+import net.javaguides.todo.exception.ResourceNotFoundException;
 import net.javaguides.todo.repository.TodoRepository;
 import net.javaguides.todo.service.TodoService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Service
 @AllArgsConstructor
@@ -26,5 +28,13 @@ public class TodoServiceImpl implements TodoService {
         //Convert saved Todo Jpa entity object into TodoDto object
 
         return modelMapper.map(savedTodo, TodoDto.class);
+    }
+
+    @Override
+    public TodoDto getTodo(Long id) {
+
+        Todo todo = todoRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Todo not found with id: " + id));
+        return modelMapper.map(todo, TodoDto.class);
     }
 }
