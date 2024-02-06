@@ -69,4 +69,19 @@ public class TodoController {
         List<TodoDto> todos = todoService.getAllTodos();
         return ResponseEntity.ok(todos);
     }
+
+    @Operation(
+            summary = "Update Todo REST API",
+            description = "Update Todo REST API is used to update a particular todo in a database"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "HTTP Status 200 OK"
+    )
+    //Build Update Todo REST API
+    @PutMapping("{id}")
+    public ResponseEntity<TodoDto> updateTodo(@RequestBody TodoDto todoDto, @PathVariable("id") Long todoId){
+        TodoDto updatedTodo = todoService.updateTodo(todoDto, todoId);
+        return ResponseEntity.ok(updatedTodo);
+    }
 }
