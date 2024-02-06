@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Tag(
         name = "CRUD REST APIs for Todo Resource",
         description = "CRUD REST APIs - Add Todo, Update Todo, Get Todo, Get All Todos, Delete Todo"
@@ -51,5 +53,20 @@ public class TodoController {
     public ResponseEntity<TodoDto> getTodo(@PathVariable("id") Long todoId){
         TodoDto todoDto = todoService.getTodo(todoId);
         return new ResponseEntity<>(todoDto, HttpStatus.OK);
+    }
+
+    @Operation(
+            summary = "Get All Todos REST API",
+            description = "Get All Todos REST API is used to get all todos from a database"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "HTTP Status 200 OK"
+    )
+    //Build Get All Todos REST API
+    @GetMapping
+    public ResponseEntity<List<TodoDto>> getAllTodos(){
+        List<TodoDto> todos = todoService.getAllTodos();
+        return ResponseEntity.ok(todos);
     }
 }
