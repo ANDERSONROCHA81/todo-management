@@ -84,4 +84,19 @@ public class TodoController {
         TodoDto updatedTodo = todoService.updateTodo(todoDto, todoId);
         return ResponseEntity.ok(updatedTodo);
     }
+
+    @Operation(
+            summary = "Delete Todo REST API",
+            description = "Delete Todo REST API is used to delete a particular todo from a database"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "HTTP Status 200 OK"
+    )
+    //Build Delete Todo REST API
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> deleteTodo(@PathVariable("id") Long todoId){
+        todoService.deleteTodo(todoId);
+        return ResponseEntity.ok("Todo deleted successfully!");
+    }
 }
