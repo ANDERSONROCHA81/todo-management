@@ -99,4 +99,19 @@ public class TodoController {
         todoService.deleteTodo(todoId);
         return ResponseEntity.ok("Todo deleted successfully!");
     }
+
+    @Operation(
+            summary = "Complete Todo REST API",
+            description = "Complete Todo REST API is used to set a particular todo in a database as completed"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "HTTP Status 200 OK"
+    )
+    //Build Complete Todo REST API
+    @PatchMapping("{id}/complete")
+    public ResponseEntity<TodoDto> completeTodo(@PathVariable("id") Long todoId){
+        TodoDto completedTodo = todoService.completeTodo(todoId);
+        return ResponseEntity.ok(completedTodo);
+    }
 }
