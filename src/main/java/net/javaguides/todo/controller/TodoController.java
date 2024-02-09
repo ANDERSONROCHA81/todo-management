@@ -114,4 +114,19 @@ public class TodoController {
         TodoDto completedTodo = todoService.completeTodo(todoId);
         return ResponseEntity.ok(completedTodo);
     }
+
+    @Operation(
+            summary = "Incomplete Todo REST API",
+            description = "Incomplete Todo REST API is used to set a particular todo in a database as incompleted"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "HTTP Status 200 OK"
+    )
+    //Build Incomplete Todo REST API
+    @PatchMapping("{id}/in-complete")
+    public ResponseEntity<TodoDto> incompleteTodo(@PathVariable("id") Long todoId){
+        TodoDto incompletedTodo = todoService.incompleteTodo(todoId);
+        return ResponseEntity.ok(incompletedTodo);
+    }
 }
